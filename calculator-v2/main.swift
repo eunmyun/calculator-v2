@@ -10,28 +10,40 @@ import Foundation
 
 //  Build a calculator
 // create four functions for add, subtract, multiply, divide
-// create a function that expects one of them along with two Ints
-func add (input1 : Int, input2 : Int) -> Int {
+let add = {(input1 : Int, input2 : Int) -> Int in
     return input1 + input2
 }
 
-func subtract (input1 : Int, input2 : Int) -> Int {
+let subtract = {(input1 : Int, input2 : Int) -> Int in
     return input1 - input2
 }
 
-func multiply (input1 : Int, input2 : Int) -> Int {
+let multiply = {(input1 : Int, input2 : Int) -> Int in
     return input1 * input2
 }
 
-func divide (input1 : Int, input2 : Int) -> Int {
+let divide = {(input1 : Int, input2 : Int) -> Int in
     return input1 / input2
 }
 
-func simpleCalc (input1 : Int, input2 : Int, op : (Int, Int) -> Int) -> Int {
+// create a function that expects one of them along with two Ints
+let simpleCalc = {(input1 : Int, input2 : Int, op : (Int, Int) -> Int) -> Int in
     return op(input1, input2)
 }
 
+print("2 + 2 = \(add(2, 2))")
+print("13 - 8 = \(subtract(13, 8))")
+print("2 * 3 = \(multiply(2, 3))")
+print("21 / 3 = \(divide(21, 3))")
+
+print("2 + 2 = \(simpleCalc(2, 2, add))")
+print("13 - 8 = \(simpleCalc(13, 8, subtract))")
+print("2 * 3 = \(simpleCalc(2, 3, multiply))")
+print("21 / 3 = \(simpleCalc(21, 3, divide))")
+
+
 //  Array fun
+// create two new functions for add/mul
 func addArry (inputs : [Int]) -> Int {
     var sum = 0
     for index in 0...inputs.count {
@@ -48,21 +60,22 @@ func multArry (inputs : [Int]) -> Int {
     return result
 }
 
-func subArry (inputs : [Int]) -> Int {
-    var result = inputs[0]
-    for index in 1...inputs.count {
-        result *= inputs[index]
-    }
-    return result
+// create two new functions (count, avg) that take an array of Ints
+func count (inputs : [Int]) -> Int {
+    return inputs.count
 }
 
-func divArry (inputs : [Int]) -> Int {
-    var result = inputs[0]
+func avg (inputs : [Int]) -> Int {
+    var sum = inputs[0]
     for index in 1...inputs.count {
-        result *= inputs[index]
+        sum += inputs[index]
     }
-    return result
+    return sum / inputs.count
 }
+
+
+
+// refactor all four down to another "generic math operation" approach
 
 
 //  Points
@@ -87,7 +100,11 @@ var pointD = [
     "y":4,
 ]
 
-func _addPoint
+func _addPoint (c : [String, Int], d : [String, Int]) -> [String, Int] {
+    result["x"] = c["x"] + d["x"]
+    result["y"] = c["y"] + d["y"]
+    return result
+}
 
 addPoint(pointA, b : pointB)
 subPoint(pointA, b : pointB)
