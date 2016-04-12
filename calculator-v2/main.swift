@@ -66,5 +66,30 @@ func divArry (inputs : [Int]) -> Int {
 
 
 //  Points
+var pointA : (x : Int, y : Int) = (1, 2)
+var pointB : (x : Int, y : Int) = (3, 4)
 
+func addPoint (a : (Int, Int), b : (Int, Int)) -> (Int, Int) {
+    return (a.0 + b.0, a.1 + b.1)
+}
+
+func subPoint (a : (Int, Int), b : (Int, Int)) -> (Int, Int) {
+    return (a.0 - b.0, a.1 - b.1)
+}
+
+var pointC = [
+    "x": 1,
+    "y": 2,
+]
+
+var pointD = [
+    "x":3,
+    "y":4,
+]
+
+func _addPoint
+
+addPoint(pointA, b : pointB)
+subPoint(pointA, b : pointB)
+addPoint(pointC, b : pointD)
 
