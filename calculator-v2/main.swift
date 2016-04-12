@@ -46,7 +46,7 @@ print("21 / 3 = \(simpleCalc(21, 3, divide))")
 // create two new functions for add/mul
 func addArry (inputs : [Int]) -> Int {
     var sum = 0
-    for index in 0...inputs.count {
+    for index in 0...inputs.count - 1 {
         sum += inputs[index]
     }
     return sum
@@ -54,7 +54,7 @@ func addArry (inputs : [Int]) -> Int {
 
 func multArry (inputs : [Int]) -> Int {
     var result = inputs[0]
-    for index in 1...inputs.count {
+    for index in 1...inputs.count - 1 {
         result *= inputs[index]
     }
     return result
@@ -67,46 +67,76 @@ func count (inputs : [Int]) -> Int {
 
 func avg (inputs : [Int]) -> Int {
     var sum = inputs[0]
-    for index in 1...inputs.count {
+    for index in 1...inputs.count - 1 {
         sum += inputs[index]
     }
     return sum / inputs.count
 }
 
-
-
 // refactor all four down to another "generic math operation" approach
+func genFunc (inputs : [Int], op : ([Int]) -> Int) -> Int {
+    return op(inputs)
+}
+
+print("Add 1, 2, 3, 4 = \(addArry([1, 2, 3, 4]))")
+print("multiply 1, 2, 3, 4 = \(multArry([1, 2, 3, 4]))")
+print("count 1, 2, 3, 4 = \(count([1, 2, 3, 4]))")
+print("average 1, 2, 3, 4 = \(avg([1, 2, 3, 4]))")
+
+print("Add 1, 2, 3, 4 = \(genFunc([1, 2, 3, 4], op: addArry))")
+print("Multiply 1, 2, 3, 4 = \(genFunc([1, 2, 3, 4], op: multArry))")
+print("count 1, 2, 3, 4 = \(genFunc([1, 2, 3, 4], op: count))")
+print("average 1, 2, 3, 4 = \(genFunc([1, 2, 3, 4], op: avg))")
 
 
 //  Points
-var pointA : (x : Int, y : Int) = (1, 2)
-var pointB : (x : Int, y : Int) = (3, 4)
+// use tuples to represent x/y point pairs
+var pointA : (x1 : Int, y1 : Int) = (1, 2)
+var pointB : (x2 : Int, y2 : Int) = (3, 4)
 
-func addPoint (a : (Int, Int), b : (Int, Int)) -> (Int, Int) {
-    return (a.0 + b.0, a.1 + b.1)
+// create two functions for adding and subtracting points
+func addPoint (a : (x1 : Int, y1 : Int), b : (x2 : Int, y2 : Int)) -> (x : Int, y : Int) {
+    return (a.x1 + b.x2, a.y1 + b.y2)
 }
 
-func subPoint (a : (Int, Int), b : (Int, Int)) -> (Int, Int) {
-    return (a.0 - b.0, a.1 - b.1)
+func subPoint (a : (x1 : Int, y1 : Int), b : (x2 : Int, y2 : Int)) -> (x : Int, y : Int) {
+    return (a.x1 - b.x2, a.y1 - b.y2)
 }
 
+print("(1, 2) + (3, 4) = \(addPoint(pointA, b : pointB))")
+print("(1, 2) - (3, 4) = \(subPoint(pointA, b : pointB))")
+
+// now use Dictionaries to represent points
 var pointC = [
     "x": 1,
     "y": 2,
 ]
 
 var pointD = [
-    "x":3,
-    "y":4,
+    "x": 3,
+    "y": 4,
 ]
 
-func _addPoint (c : [String, Int], d : [String, Int]) -> [String, Int] {
-    result["x"] = c["x"] + d["x"]
-    result["y"] = c["y"] + d["y"]
+// create two functions for adding and subtracting points
+func _addPoint (c : [String: Int], d : [String: Int]) -> [String: Int] {
+    let x = c["x"]! + d["x"]!
+    let y = c["y"]! + d["y"]!
+    let result = [
+        "x": x,
+        "y": y,
+    ]
     return result
 }
 
-addPoint(pointA, b : pointB)
-subPoint(pointA, b : pointB)
-addPoint(pointC, b : pointD)
+func _subPoint (c : [String: Int], d : [String: Int]) -> [String: Int] {
+    let x = c["x"]! - d["x"]!
+    let y = c["y"]! - d["y"]!
+    let result = [
+        "x": x,
+        "y": y,
+        ]
+    return result
+}
 
+print("(1, 2) + (3, 4) = \(_addPoint(pointC, d : pointD))")
+print("(1, 2) - (3, 4) = \(_subPoint(pointC, d : pointD))")
